@@ -74,49 +74,31 @@ const scrollOnCollection = (direction) => {
   }
 };
 
-export const Collection = ({ collection }) => {
-  const [filterText, setFilterText] = useState("");
-
-  const handleFilterTextChange = (e) => {
-    setFilterText(e.currentTarget.value.toLowerCase());
-  };
-
+export const Collection = ({ collection, filterText }) => {
   return (
     <div
       css={css`
-        height: calc(100% - 84px);
-        padding: 42px 0;
+        height: calc(100vh - 12rem - 1rem - 48px);
+        display: flex;
+        flex-direction: column;
         background-color: #d0dfb2;
-        border-radius: 5px;
-        overflow: hidden;
-        position: relative;
+        padding: 16px;
+        border-radius: 3px;
       `}
     >
-      <SearchBar
+      {/* <SearchBar
         filterText={filterText}
         handleFilterTextChange={handleFilterTextChange}
-      />
-      <div
+      /> */}
+      <CollectionScrollButton
+        className="collectionPreviousButton"
+        onClick={handleCollectionPreviousButtonClick}
         css={css`
-          background-color: #d0dfb2;
-          position: absolute;
-          top: 10;
-          z-index: 3;
-          width: 100%;
-          text-align: center;
-          padding-top: 10px;
+          visibility: hidden;
         `}
       >
-        <CollectionScrollButton
-          className="collectionPreviousButton"
-          onClick={handleCollectionPreviousButtonClick}
-          css={css`
-            display: none;
-          `}
-        >
-          ⮝
-        </CollectionScrollButton>{" "}
-      </div>
+        ⮝
+      </CollectionScrollButton>
       <div
         className="collectionItemsContainer"
         css={css`
@@ -128,10 +110,11 @@ export const Collection = ({ collection }) => {
       >
         <div
           css={css`
-            margin: 1.5rem;
+            margin: 0.5rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            grid-gap: 1rem;
+            grid-template-columns: repeat(auto-fit, 180px);
+            grid-gap: 0;
+            justify-content: center;
           `}
         >
           {/* Map Collection Data into Collection Item Components */}
@@ -149,24 +132,12 @@ export const Collection = ({ collection }) => {
             ))}
         </div>
       </div>
-      <div
-        css={css`
-          background-color: #d0dfb2;
-          position: absolute;
-          bottom: 0;
-          z-index: 2;
-          width: 100%;
-          text-align: center;
-          padding-top: 10px;
-        `}
+      <CollectionScrollButton
+        className="collectionNextButton"
+        onClick={handleCollectionNextButtonClick}
       >
-        <CollectionScrollButton
-          className="collectionNextButton"
-          onClick={handleCollectionNextButtonClick}
-        >
-          ⮟
-        </CollectionScrollButton>{" "}
-      </div>
+        ⮟
+      </CollectionScrollButton>{" "}
     </div>
   );
 };

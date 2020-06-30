@@ -8,7 +8,7 @@ const mockCollection = [
   },
   {
     collectionPlantId: 2,
-    commonName: "Swiss Cheese Plant",
+    commonName: "Swiss Cheese Plant Long",
     scientificName: "Monstera Deliciosa",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png",

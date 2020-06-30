@@ -14,36 +14,49 @@ export const CollectionItem = ({ collectionItem }) => {
         scroll-snap-align: start;
       `}
     >
-      <PlantCard
+      <div
         css={css`
-          width: 160px;
-          height: 210px;
-          padding: 1rem;
+          height: calc(
+            (100vh - 12rem - 1rem - 48px - 4rem - 74px - 30px - 32px + 2.8rem) /
+              2
+          );
         `}
       >
-        <div>
-          <img width="100%" src={monsteraDeliciosa} />
-        </div>
-        <p
+        <PlantCard
           css={css`
-            display: block;
-            font-size: 1rem;
-            margin: 0.5rem;
+            width: 150px;
+            /* height: calc(
+            (100vh - 12rem - 1rem - 48px - 4rem - 74px - 30px - 32px) / 2
+          ); */
+            height: 100%;
+            max-height: 230px;
+            padding: 0.7rem;
           `}
         >
-          {collectionItem.commonName}
-        </p>
-        <p
-          css={css`
-            display: block;
-            font-size: 0.8rem;
-            margin: 0;
-            font-style: italic;
-          `}
-        >
-          {collectionItem.scientificName}
-        </p>
-      </PlantCard>
+          <div>
+            <img width="100%" src={monsteraDeliciosa} />
+          </div>
+          <p
+            css={css`
+              display: block;
+              font-size: 1rem;
+              margin: 0.2rem;
+            `}
+          >
+            {collectionItem.commonName}
+          </p>
+          <p
+            css={css`
+              display: block;
+              font-size: 0.8rem;
+              margin: 0;
+              font-style: italic;
+            `}
+          >
+            {collectionItem.scientificName}
+          </p>
+        </PlantCard>
+      </div>
     </div>
   );
 };
