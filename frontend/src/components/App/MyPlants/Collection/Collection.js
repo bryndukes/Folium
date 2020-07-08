@@ -40,13 +40,14 @@ const scrollOnCollection = (direction) => {
       newScrollBottom >=
       document.querySelector(".collectionItemsContainer").scrollHeight - 279
     ) {
-      document.querySelector(".collectionNextButton").style.display = "none";
+      document.querySelector(".collectionNextButton").style.visibility =
+        "hidden";
     }
 
     //If scrolling down from the top, show the previous button
     if (currentScrollTop < 280) {
-      document.querySelector(".collectionPreviousButton").style.display =
-        "block";
+      document.querySelector(".collectionPreviousButton").style.visibility =
+        "visibile";
     }
   } else if (direction === "previous") {
     //Set the location to scroll up to to the current top minus the height of one item
@@ -60,8 +61,8 @@ const scrollOnCollection = (direction) => {
 
     //If the top is reached, hide the previous button
     if (newScrollTop < 280) {
-      document.querySelector(".collectionPreviousButton").style.display =
-        "none";
+      document.querySelector(".collectionPreviousButton").style.visibility =
+        "hidden";
     }
 
     //If scrolling up from the bottom, show the next button
@@ -69,12 +70,13 @@ const scrollOnCollection = (direction) => {
       currentScrollBottom >=
       document.querySelector(".collectionItemsContainer").scrollHeight - 279
     ) {
-      document.querySelector(".collectionNextButton").style.display = "block";
+      document.querySelector(".collectionNextButton").style.visibility =
+        "visible";
     }
   }
 };
 
-export const Collection = ({ collection, filterText }) => {
+export const Collection = ({ collection, filterText, handlePlantClick }) => {
   return (
     <div
       css={css`
@@ -86,15 +88,11 @@ export const Collection = ({ collection, filterText }) => {
         border-radius: 3px;
       `}
     >
-      {/* <SearchBar
-        filterText={filterText}
-        handleFilterTextChange={handleFilterTextChange}
-      /> */}
       <CollectionScrollButton
         className="collectionPreviousButton"
         onClick={handleCollectionPreviousButtonClick}
         css={css`
-          visibility: hidden;
+          /* visibility: hidden; */
         `}
       >
         ⮝
@@ -128,6 +126,7 @@ export const Collection = ({ collection, filterText }) => {
               <CollectionItem
                 collectionItem={collectionItem}
                 key={collectionItem.collectionPlantId}
+                handlePlantClick={handlePlantClick}
               />
             ))}
         </div>

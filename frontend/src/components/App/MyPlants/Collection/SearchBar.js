@@ -152,18 +152,17 @@ const searchButtonStyle = ({ showSearchBar }) => css`
     `}
 `;
 
-export const SearchBar = ({ filterText, handleFilterTextChange }) => {
-  const [showSearchBar, setShowSearchBar] = useState(false);
-
-  const handleOnSearchButtonClick = () => {
-    setShowSearchBar(showSearchBar ? false : true);
-    console.log(showSearchBar);
-  };
-
+export const SearchBar = ({
+  filterText,
+  handleFilterTextChange,
+  showSearchBar,
+  handleSearchButtonClick,
+}) => {
   return (
     <div
       css={css`
         width: 100%;
+        flex: 0 0 auto;
       `}
     >
       <div
@@ -187,7 +186,7 @@ export const SearchBar = ({ filterText, handleFilterTextChange }) => {
             type="reset"
             className="searchButton"
             css={searchButtonStyle({ showSearchBar })}
-            onClick={handleOnSearchButtonClick}
+            onClick={handleSearchButtonClick}
           ></button>
         </form>
       </div>

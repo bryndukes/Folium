@@ -3,6 +3,9 @@ const mockCollection = [
     collectionPlantId: 1,
     commonName: "Satin Pothos",
     scientificName: "Scindapsus Pictus",
+    variety: "",
+    nickname: "",
+    notes: "",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\scindapsus-pictus.jpg",
   },
@@ -10,6 +13,9 @@ const mockCollection = [
     collectionPlantId: 2,
     commonName: "Swiss Cheese Plant Long",
     scientificName: "Monstera Deliciosa",
+    variety: "",
+    nickname: "",
+    notes: "",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png",
   },
@@ -17,6 +23,9 @@ const mockCollection = [
     collectionPlantId: 3,
     commonName: "Peace Lily",
     scientificName: "Spathiphyllum wallisii",
+    variety: "",
+    nickname: "",
+    notes: "",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png",
   },
@@ -24,6 +33,9 @@ const mockCollection = [
     collectionPlantId: 4,
     commonName: "Rubber Plant",
     scientificName: "Ficus Elastica",
+    variety: "",
+    nickname: "",
+    notes: "",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png",
   },
@@ -31,6 +43,9 @@ const mockCollection = [
     collectionPlantId: 5,
     commonName: "Crocodile Fern",
     scientificName: "Microsorum musifolium",
+    variety: "",
+    nickname: "",
+    notes: "",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png",
   },
@@ -38,6 +53,9 @@ const mockCollection = [
     collectionPlantId: 6,
     commonName: "Satin Pothos",
     scientificName: "Scindapsus Pictus",
+    variety: "",
+    nickname: "",
+    notes: "",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\scindapsus-pictus.jpg",
   },
@@ -45,6 +63,9 @@ const mockCollection = [
     collectionPlantId: 7,
     commonName: "Swiss Cheese Plant",
     scientificName: "Monstera Deliciosa",
+    variety: "",
+    nickname: "",
+    notes: "",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png",
   },
@@ -52,6 +73,9 @@ const mockCollection = [
     collectionPlantId: 8,
     commonName: "Peace Lily",
     scientificName: "Spathiphyllum wallisii",
+    variety: "",
+    nickname: "",
+    notes: "",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png",
   },
@@ -59,6 +83,9 @@ const mockCollection = [
     collectionPlantId: 9,
     commonName: "Rubber Plant",
     scientificName: "Ficus Elastica",
+    variety: "",
+    nickname: "",
+    notes: "",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png",
   },
@@ -66,11 +93,15 @@ const mockCollection = [
     collectionPlantId: 10,
     commonName: "Crocodile Fern",
     scientificName: "Microsorum musifolium",
+    variety: "",
+    nickname: "",
+    notes: "",
     imageUrl:
       "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png",
   },
 ];
 
+//TODO: Once API is added, set these up to call API and add error handling.
 export const getCollection = () => {
   return mockCollection;
 };
