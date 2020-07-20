@@ -58,11 +58,23 @@ export const NumericInputField = styled.input`
 
 export const TextAreaInputField = styled.textarea`
   width: 100%;
-  height: 100px;
+  height: 200px;
   padding: 5px;
   border: 2px solid #005c5b;
   border-radius: 3px;
   box-sizing: border-box;
+`;
+
+export const LargeButton = styled.button`
+  display: block;
+  padding: 10px;
+  width: 80px;
+  font-family: "Lustria", serif;
+  color: #fff;
+  font-size: 1.1rem;
+  background-color: #005c5b;
+  border: 3px solid #005c5b;
+  border-radius: 3px;
 `;
 
 export const EscapeButton = styled.a`

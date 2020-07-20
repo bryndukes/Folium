@@ -32,6 +32,9 @@ export const MyPlantsPage = () => {
   const handleNewPlantAdded = () => {
     setShowAddNewPlant(false);
   };
+  const handlePlantDeleted = () => {
+    setShowPlantProfile(false);
+  };
 
   const handleFilterTextChange = (e) => {
     setFilterText(e.currentTarget.value.toLowerCase());
@@ -82,7 +85,9 @@ export const MyPlantsPage = () => {
 
   let leftComponent;
   if (showPlantProfile) {
-    leftComponent = <PlantProfile plant={plant} />;
+    leftComponent = (
+      <PlantProfile plant={plant} handlePlantDeleted={handlePlantDeleted} />
+    );
   } else if (showAddNewPlant) {
     leftComponent = <AddPlantForm handleNewPlantAdded={handleNewPlantAdded} />;
   } else {

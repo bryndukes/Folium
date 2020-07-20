@@ -66,16 +66,16 @@ export const AddPlantForm = ({ handleNewPlantAdded }) => {
       scientificName: "",
       variety: "",
       nickname: "",
-      daysBetweenWatering: 0,
-      daysBetweenFertilizing: 0,
-      monthsBetweenRepotting: 0,
+      daysBetweenWatering: null,
+      daysBetweenFertilizing: null,
+      monthsBetweenRepotting: null,
       notes: "",
     },
     onSubmit: (values) => {
       alert("New " + values.commonName + " added");
       //TODO: Consider if this should occur in the upper level component?
       //TODO: SOrt out the actual values which need to be submitted.
-      const plant = {
+      const newPlant = {
         commonName: values.commonName,
         scientificName: values.scientificName,
         variety: values.variety,
@@ -84,7 +84,7 @@ export const AddPlantForm = ({ handleNewPlantAdded }) => {
         imageUrl:
           "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png",
       };
-      addPlant(plant);
+      addPlant(newPlant);
       handleNewPlantAdded();
     },
   });
@@ -124,166 +124,170 @@ export const AddPlantForm = ({ handleNewPlantAdded }) => {
         <form
           onSubmit={formik.handleSubmit}
           css={css`
-            display: grid;
-            grid-template-columns: repeat(auto-fit, 270px);
-            grid-gap: 0.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
           `}
         >
           <div
             css={css`
-              font-family: "Lustria", serif;
-              color: #00654b;
-              font-size: 1.3rem;
-              grid-column: 1 / -1;
+              display: grid;
+              grid-template-columns: repeat(auto-fit, 270px);
+              grid-gap: 0.5rem 2rem;
             `}
           >
-            Bio
+            <div
+              css={css`
+                font-family: "Lustria", serif;
+                color: #00654b;
+                font-size: 1.3rem;
+                grid-column: 1 / -1;
+              `}
+            >
+              Bio
+            </div>
+            <div className="imageArea">
+              <FormField>
+                <label
+                  for="image"
+                  css={css`
+                    cursor: pointer;
+                  `}
+                >
+                  {imagePreview}
+                </label>
+                <input
+                  id="image"
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePlantImageChange}
+                  css={css`
+                    display: none;
+                  `}
+                />
+              </FormField>
+            </div>
+            <div className="detailsArea">
+              <FormField>
+                <FormLabel htmlFor="commonName">Common Name</FormLabel>
+                <TextInputField
+                  id="commonName"
+                  name="commonName"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.commonName}
+                />
+              </FormField>
+              <FormField>
+                <FormLabel htmlFor="scientificName">Scientific Name</FormLabel>
+                <TextInputField
+                  id="scientificName"
+                  name="scientificName"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.scientificName}
+                />
+              </FormField>
+              <FormField>
+                <FormLabel htmlFor="variety">Variety/Cultivar</FormLabel>
+                <TextInputField
+                  id="variety"
+                  name="variety"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.variety}
+                />
+              </FormField>
+              <FormField>
+                <FormLabel htmlFor="nickname">Nickname</FormLabel>
+                <TextInputField
+                  id="nickname"
+                  name="nickname"
+                  type="text"
+                  onChange={formik.handleChange}
+                  value={formik.values.nickname}
+                />
+              </FormField>
+            </div>
+            <div
+              css={css`
+                font-family: "Lustria", serif;
+                color: #00654b;
+                font-size: 1.3rem;
+                grid-column: 1 / -1;
+              `}
+            >
+              Care
+            </div>
+            <div className="careArea">
+              <HorizontalFormField>
+                <HorizontalFormLabel htmlFor="daysBetweenWatering">
+                  Days Between Watering
+                </HorizontalFormLabel>
+                <NumericInputField
+                  id="daysBetweenWatering"
+                  name="daysBetweenWatering"
+                  type="number"
+                  onChange={formik.handleChange}
+                  value={formik.values.daysBetweenWatering}
+                />
+              </HorizontalFormField>
+              <HorizontalFormField>
+                <HorizontalFormLabel htmlFor="daysBetweenFertilizing">
+                  Days Between Fertilizing
+                </HorizontalFormLabel>
+                <NumericInputField
+                  id="daysBetweenFertilizing"
+                  name="daysBetweenFertilizing"
+                  type="number"
+                  onChange={formik.handleChange}
+                  value={formik.values.daysBetweenFertilizing}
+                />
+              </HorizontalFormField>
+            </div>
+            <div className="careArea">
+              <HorizontalFormField>
+                <HorizontalFormLabel htmlFor="monthsBetweenRepotting">
+                  Months Between Repotting
+                </HorizontalFormLabel>
+                <NumericInputField
+                  id="monthsBetweenRepotting"
+                  name="monthsBetweenRepotting"
+                  type="number"
+                  onChange={formik.handleChange}
+                  value={formik.values.monthsBetweenRepotting}
+                />
+              </HorizontalFormField>
+            </div>
+            <div
+              css={css`
+                font-family: "Lustria", serif;
+                color: #00654b;
+                font-size: 1.3rem;
+                grid-column: 1 / -1;
+              `}
+            >
+              Notes
+            </div>
+            <div
+              className="notesArea"
+              css={css`
+                grid-column: 1 / -1;
+              `}
+            >
+              <FullWidthFormField>
+                <TextAreaInputField
+                  id="notes"
+                  name="notes"
+                  type="textarea"
+                  onChange={formik.handleChange}
+                  value={formik.values.notes}
+                />
+              </FullWidthFormField>
+            </div>
           </div>
-          <div className="imageArea">
-            <FormField>
-              <label
-                for="image"
-                css={css`
-                  cursor: pointer;
-                `}
-              >
-                {imagePreview}
-              </label>
-              <input
-                id="image"
-                name="image"
-                type="file"
-                accept="image/*"
-                onChange={handlePlantImageChange}
-                css={css`
-                  display: none;
-                `}
-              />
-            </FormField>
-          </div>
-          <div className="detailsArea">
-            <FormField>
-              <FormLabel htmlFor="commonName">Common Name</FormLabel>
-              <TextInputField
-                id="commonName"
-                name="commonName"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.commonName}
-              />
-            </FormField>
-            <FormField>
-              <FormLabel htmlFor="scientificName">Scientific Name</FormLabel>
-              <TextInputField
-                id="scientificName"
-                name="scientificName"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.scientificName}
-              />
-            </FormField>
-            <FormField>
-              <FormLabel htmlFor="variety">Variety/Cultivar</FormLabel>
-              <TextInputField
-                id="variety"
-                name="variety"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.variety}
-              />
-            </FormField>
-            <FormField>
-              <FormLabel htmlFor="nickname">Nickname</FormLabel>
-              <TextInputField
-                id="nickname"
-                name="nickname"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.nickname}
-              />
-            </FormField>
-          </div>
-          <div
-            css={css`
-              font-family: "Lustria", serif;
-              color: #00654b;
-              font-size: 1.3rem;
-              grid-column: 1 / -1;
-            `}
-          >
-            Care
-          </div>
-          <div className="careArea">
-            <HorizontalFormField>
-              <HorizontalFormLabel htmlFor="daysBetweenWatering">
-                Days Between Watering
-              </HorizontalFormLabel>
-              <NumericInputField
-                id="daysBetweenWatering"
-                name="daysBetweenWatering"
-                type="number"
-                onChange={formik.handleChange}
-                value={formik.values.daysBetweenWatering}
-              />
-            </HorizontalFormField>
-            <HorizontalFormField>
-              <HorizontalFormLabel htmlFor="daysBetweenFertilizing">
-                Days Between Fertilizing
-              </HorizontalFormLabel>
-              <NumericInputField
-                id="daysBetweenFertilizing"
-                name="daysBetweenFertilizing"
-                type="number"
-                onChange={formik.handleChange}
-                value={formik.values.daysBetweenFertilizing}
-              />
-            </HorizontalFormField>
-          </div>
-          <div className="careArea">
-            <HorizontalFormField>
-              <HorizontalFormLabel htmlFor="monthsBetweenRepotting">
-                Months Between Repotting
-              </HorizontalFormLabel>
-              <NumericInputField
-                id="monthsBetweenRepotting"
-                name="monthsBetweenRepotting"
-                type="number"
-                onChange={formik.handleChange}
-                value={formik.values.monthsBetweenRepotting}
-              />
-            </HorizontalFormField>
-          </div>
-          <div
-            css={css`
-              font-family: "Lustria", serif;
-              color: #00654b;
-              font-size: 1.3rem;
-              grid-column: 1 / -1;
-            `}
-          >
-            Notes
-          </div>
-          <div
-            className="notesArea"
-            css={css`
-              grid-column: 1 / -1;
-            `}
-          >
-            <FullWidthFormField>
-              <TextAreaInputField
-                id="notes"
-                name="notes"
-                type="textarea"
-                onChange={formik.handleChange}
-                value={formik.values.notes}
-              />
-            </FullWidthFormField>
-          </div>
-          <div
-            css={css`
-              grid-column: 1 / -1;
-            `}
-          >
+          <div>
             <button
               type="submit"
               css={css`
