@@ -14,7 +14,7 @@ const mockCollection = [
     daysBetweenFertilizing: 13,
     lastFertilized: new Date(2020, 6, 16),
     monthsBetweenRepotting: 12,
-    lastRepotted: new Date(2020, 6, 12),
+    lastRepotted: new Date(2020, 3, 12),
   },
   {
     collectionPlantId: 2,
@@ -143,6 +143,13 @@ export const deletePlant = (collectionPlantId) => {
     (p) => p.collectionPlantId === collectionPlantId
   );
   mockCollection.splice(i, 1);
+};
+
+export const waterPlant = (collectionPlantId) => {
+  let i = mockCollection.findIndex(
+    (p) => p.collectionPlantId === collectionPlantId
+  );
+  mockCollection[i].daysSinceWatering = 0;
 };
 
 //TODO: Combine these

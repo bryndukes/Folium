@@ -35,6 +35,9 @@ export const MyPlantsPage = () => {
   const handlePlantDeleted = () => {
     setShowPlantProfile(false);
   };
+  const handlePlantUpdated = () => {
+    setShowPlantProfile(false);
+  };
 
   const handleFilterTextChange = (e) => {
     setFilterText(e.currentTarget.value.toLowerCase());
@@ -86,7 +89,11 @@ export const MyPlantsPage = () => {
   let leftComponent;
   if (showPlantProfile) {
     leftComponent = (
-      <PlantProfile plant={plant} handlePlantDeleted={handlePlantDeleted} />
+      <PlantProfile
+        selectedPlant={plant}
+        handlePlantUpdated={handlePlantUpdated}
+        handlePlantDeleted={handlePlantDeleted}
+      />
     );
   } else if (showAddNewPlant) {
     leftComponent = <AddPlantForm handleNewPlantAdded={handleNewPlantAdded} />;

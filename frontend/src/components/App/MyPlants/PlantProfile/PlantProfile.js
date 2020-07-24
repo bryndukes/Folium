@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import {
   FormField,
@@ -9,216 +9,26 @@ import {
   TextAreaInputField,
   LargeButton,
 } from "../styled";
-import {
-  ProfileCareCategory,
-  ProfileCareLabel,
-  ProfileCareDetail,
-  ProfileCareItem,
-  ProfileCareButton,
-} from "./styled";
 import monsteraDeliciosa from "../../../../mockdata/images/monstera-deliciosa.png";
-import { useEffect } from "react";
-import {
-  calculateDaysSinceWatering,
-  calculateNextWatering,
-  calculateDaysSinceFertilizing,
-  calculateNextFertilizing,
-  calculateMonthsSinceRepotting,
-  calculateNextRepotting,
-  updatePlant,
-  deletePlant,
-} from "../../../../CollectionData";
-import {
-  faPen,
-  faEdit,
-  faTint,
-  faSeedling,
-  faIgloo,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { updatePlant, deletePlant } from "../../../../CollectionData";
+import { faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PlantProfileCareArea } from "./PlantProfileCareArea";
 
-export const PlantProfile = ({ plant, handlePlantDeleted }) => {
-  const [hasCareDetails, setHasCareDetails] = useState(
-    plant.daysBetweenWatering ||
-      plant.daysBetweenFertilizing ||
-      plant.monthsBetweenRepotting
-  );
-
-  let careSection = null;
-
-  if (hasCareDetails) {
-    console.log(hasCareDetails);
-    const daysSinceWatering = calculateDaysSinceWatering(plant);
-    let daysSinceWateringText;
-    {
-      if (daysSinceWatering > 1) {
-        daysSinceWateringText = daysSinceWatering + " days ago";
-      } else if (daysSinceWatering === 1) {
-        daysSinceWateringText = "yesterday";
-      } else {
-        daysSinceWateringText = "today";
-      }
-    }
-    const nextWatering = calculateNextWatering(plant, daysSinceWatering);
-    let nextWateringText;
-    {
-      if (nextWatering > 1) {
-        nextWateringText = "in " + nextWatering + " days";
-      } else if (nextWatering === 1) {
-        nextWateringText = "tomorrow";
-      } else if (nextWatering === 0) {
-        nextWateringText = "due";
-      } else if (nextWatering < 0) {
-        nextWateringText = "overdue";
-      }
-    }
-
-    const daysSinceFertilizing = calculateDaysSinceFertilizing(plant);
-    let daysSinceFertilizingText;
-    {
-      if (daysSinceFertilizing > 1) {
-        daysSinceFertilizingText = daysSinceFertilizing + " days ago";
-      } else if (daysSinceFertilizing === 1) {
-        daysSinceFertilizingText = "yesterday";
-      } else {
-        daysSinceFertilizingText = "today";
-      }
-    }
-    const nextFertilizing = calculateNextFertilizing(
-      plant,
-      daysSinceFertilizing
-    );
-    let nextFertilizingText;
-    {
-      if (nextFertilizing > 1) {
-        nextFertilizingText = "in " + nextFertilizing + " days";
-      } else if (nextFertilizing === 1) {
-        nextFertilizingText = "tomorrow";
-      } else if (nextFertilizing === 0) {
-        nextFertilizingText = "due";
-      } else if (nextFertilizing < 0) {
-        nextFertilizingText = "overdue";
-      }
-    }
-
-    const monthsSinceRepotting = calculateMonthsSinceRepotting(plant);
-    let monthsSinceRepottingText;
-    if (monthsSinceRepotting > 1) {
-      monthsSinceRepottingText = monthsSinceRepotting + " months ago";
-    } else if (monthsSinceRepotting === 1) {
-      monthsSinceRepottingText = " 1 month ago";
-    } else {
-      monthsSinceRepottingText = "this month";
-    }
-    const nextRepotting = calculateNextRepotting(plant, monthsSinceRepotting);
-    let nextRepottingText;
-    if (nextRepotting > 1) {
-      nextRepottingText = "in " + nextRepotting + " months";
-    } else if (nextRepotting === 1) {
-      nextRepottingText = "in 1 month";
-    } else if (nextRepotting === 0) {
-      nextRepottingText = "due";
-    } else if (nextRepotting < 0) {
-      nextRepottingText = "overdue";
-    }
-
-    careSection = (
-      <div
-        className="careArea"
-        css={css`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        `}
-      >
-        <div>
-          <ProfileCareCategory>
-            <ProfileCareItem>
-              <ProfileCareLabel>Last watered: </ProfileCareLabel>
-              <ProfileCareDetail>{daysSinceWateringText}</ProfileCareDetail>
-            </ProfileCareItem>
-            <ProfileCareItem>
-              <ProfileCareLabel>Next watering:</ProfileCareLabel>
-              <ProfileCareDetail>{nextWateringText}</ProfileCareDetail>
-            </ProfileCareItem>
-          </ProfileCareCategory>
-          <ProfileCareCategory>
-            <ProfileCareItem>
-              <ProfileCareLabel>Last fertilized: </ProfileCareLabel>
-              <ProfileCareDetail>{daysSinceFertilizingText}</ProfileCareDetail>
-            </ProfileCareItem>
-            <ProfileCareItem>
-              <ProfileCareLabel>Next fertilization:</ProfileCareLabel>
-              <ProfileCareDetail>{nextFertilizingText}</ProfileCareDetail>
-            </ProfileCareItem>
-          </ProfileCareCategory>
-          <ProfileCareCategory>
-            <ProfileCareItem>
-              <ProfileCareLabel>Last repotted: </ProfileCareLabel>
-              <ProfileCareDetail>{monthsSinceRepottingText}</ProfileCareDetail>
-            </ProfileCareItem>
-            <ProfileCareItem>
-              <ProfileCareLabel>Next repotting: </ProfileCareLabel>
-              <ProfileCareDetail>{nextRepottingText}</ProfileCareDetail>
-            </ProfileCareItem>
-          </ProfileCareCategory>
-          <div
-            css={css`
-              display: flex;
-              justify-content: space-around;
-            `}
-          >
-            <ProfileCareButton>
-              <FontAwesomeIcon icon={faTint} />
-            </ProfileCareButton>
-            <ProfileCareButton>
-              <FontAwesomeIcon icon={faSeedling} />
-            </ProfileCareButton>
-            <ProfileCareButton>
-              <FontAwesomeIcon icon={faIgloo} />
-            </ProfileCareButton>
-            <ProfileCareButton>
-              <FontAwesomeIcon icon={faEdit} />
-            </ProfileCareButton>
-          </div>
-        </div>
-      </div>
-    );
-  } else {
-    careSection = (
-      <div
-        className="careArea"
-        css={css`
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        `}
-      >
-        <button
-          css={css`
-            display: block;
-            padding: 5px 7px;
-            margin: auto;
-            font-family: "Lustria", serif;
-            color: #fff;
-            font-size: 0.8rem;
-            background-color: #005c5b;
-            border: 3px solid #005c5b;
-            border-radius: 3px;
-          `}
-        >
-          Add Plant Care Info
-        </button>
-      </div>
-    );
-  }
-
+export const PlantProfile = ({
+  selectedPlant,
+  handlePlantUpdated,
+  handlePlantDeleted,
+}) => {
+  const [plant, setPlant] = useState(selectedPlant);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(
     //plant.imageUrl
     monsteraDeliciosa
   );
+
+  //To ensure that the plant is updated when the lastWatered, etc. updates are made from the buttons
+  useEffect(() => updatePlant(plant), [plant]);
 
   const handlePlantImageChange = (e) => {
     setSelectedImage(e.target.files[0]);
@@ -231,6 +41,16 @@ export const PlantProfile = ({ plant, handlePlantDeleted }) => {
 
     reader.readAsDataURL(e.target.files[0]);
     formik.setFieldValue("image", e.target.files[0]);
+  };
+
+  const handleWaterButtonClick = () => {
+    setPlant({ ...plant, lastWatered: new Date() });
+  };
+  const handleFertilizeButtonClick = () => {
+    setPlant({ ...plant, lastFertilized: new Date() });
+  };
+  const handleRepotButtonClick = () => {
+    setPlant({ ...plant, lastRepotted: new Date() });
   };
 
   const handleDeleteButtonClick = () => {
@@ -254,6 +74,7 @@ export const PlantProfile = ({ plant, handlePlantDeleted }) => {
         "C:\\Users\\bryn.dukes\\source\\repos\\Folium\\mockdata\\images\\monstera-deliciosa.png";
       console.log("Submitting");
       updatePlant(updatedPlant);
+      handlePlantUpdated();
       alert("Changes saved");
     },
   });
@@ -401,7 +222,12 @@ export const PlantProfile = ({ plant, handlePlantDeleted }) => {
                 />
               </HorizontalFormField>
             </div>
-            {careSection}
+            <PlantProfileCareArea
+              plant={plant}
+              handleWaterButtonClick={handleWaterButtonClick}
+              handleFertilizeButtonClick={handleFertilizeButtonClick}
+              handleRepotButtonClick={handleRepotButtonClick}
+            />
             <div
               css={css`
                 font-family: "Lustria", serif;
@@ -426,6 +252,9 @@ export const PlantProfile = ({ plant, handlePlantDeleted }) => {
                   type="textarea"
                   onChange={formik.handleChange}
                   value={formik.values.notes}
+                  css={css`
+                    height: 200px !important;
+                  `}
                 />
               </FullWidthFormField>
             </div>

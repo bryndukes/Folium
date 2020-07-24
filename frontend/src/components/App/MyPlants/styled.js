@@ -58,7 +58,7 @@ export const NumericInputField = styled.input`
 
 export const TextAreaInputField = styled.textarea`
   width: 100%;
-  height: 200px;
+  height: 100px;
   padding: 5px;
   border: 2px solid #005c5b;
   border-radius: 3px;

@@ -30,8 +30,9 @@ export const ProfileCareButton = styled.button`
   padding: 5px 10px;
   font-family: "Lustria", serif;
   color: #fff;
-  font-size: 0.8rem;
+  font-size: 1rem;
   background-color: #005c5b;
   border: 3px solid #005c5b;
   border-radius: 3px;
+  cursor: pointer;
 `;
